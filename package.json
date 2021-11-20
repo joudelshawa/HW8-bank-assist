@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@dasha.ai/sdk": "^0.3.0",
+    "mysql": "^2.18.1",
     "react-scripts": "^2.1.8"
   }
 }
