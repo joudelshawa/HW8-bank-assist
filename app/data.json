@@ -92,6 +92,20 @@
         "Can you tell me what I spent today?"
       ]
     },
+    "give_options": {
+      "includes": [
+        "What can you help me with?",        
+        "What can you do?",
+        "What are my options?",
+        "Can I check my balance?",
+        "Can I check my bill due date?",
+        "Can I see what I spent today?",
+        "Is it possible to know my options?",
+        "What can you specifically do?",
+        "What are you able to do?",
+        "How much can you help me with?"
+      ]
+    },
 
 
     "international_student": 
