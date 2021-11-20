@@ -5,8 +5,8 @@ This example shows how to build appointment confirmation application on top of D
 1. Clone the repo and install the dependencies:
 
 ```sh
-git clone https://github.com/dasha-samples/appointment-confirmation-demo
-cd appointment-confirmation-demo
+git clone https://github.com/dasha-samples/HW8-bank-assist
+cd HW8-bank-assist
 npm install
 ```
 
