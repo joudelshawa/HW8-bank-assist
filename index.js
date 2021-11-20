@@ -1,5 +1,6 @@
 const dasha = require("@dasha.ai/sdk");
 const fs = require("fs");
+const conn = require("./DBConnection");
 
 async function main() {
   const app = await dasha.deploy("./app");

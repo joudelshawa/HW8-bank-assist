@@ -9,31 +9,23 @@ let connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('Drop Table TimeSlot',
+connection.query('Drop Table Client',
     (error, rows, fields) => {
         if (error) {
             console.log(error);
         }
         else {
-            console.log('TimeSlot Table Dropped');
+            console.log('Client table dropped');
         }
 
     });
 
 connection.query(`
-        CREATE TABLE TimeSlot (
-            name varchar(20),
-            timeone varchar(20),
-            timetwo varchar(20),
-            timethree varchar(20),
-            timefour varchar(20),
-            timefive varchar(20),
-            timesix varchar(20),
-            timeseven varchar(20),
-            timeeight varchar(20),
-            timenine varchar(20),
-            timeten varchar(20)
-
+        CREATE TABLE Client (
+            clientID int AUTO_INCREMENT PRIMARY KEY,
+            fname varchar(40),
+            lname varchar(40),
+            address varchar(20)
     );
     `
     , (error, rows, fields) => {
@@ -41,8 +33,42 @@ connection.query(`
             console.log(error);
         }
         else {
-            console.log('TimeSlot Table Created');
+            console.log('Client Table Created');
         }
     });
+
+    /*connection.query(`
+        CREATE TABLE Statement (
+            statementID int AUTO_INCREMENT PRIMARY KEY,
+            duedate date,
+            amount decimal(10,2)
+    );
+    `
+    , (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('Statement Table Created');
+        }
+    });
+
+    connection.query(`
+        CREATE TABLE Transaction (
+            transactionID int AUTO_INCREMENT PRIMARY KEY,
+            dateposted date,
+            amount decimal(10,2),
+            clientID int,
+            statementID int
+    );
+    `
+    , (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('Transaction Table Created');
+        }
+    });*/
 
 connection.end();
