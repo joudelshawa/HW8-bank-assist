@@ -20,7 +20,9 @@ start node root
     {
         #connectSafe($phone);
         #waitForSpeech(1000);
-        #sayText("Hi, welcome to Chase Bank, my name is Dasha, may I have your name please?");
+        #sayText("Hi, welcome to Chase Bank. I'm Dasha, your artificially intelligent assistant. May I have your name please?");
+        #repeat("")
+        // #sayText("Hi, welcome to Chase Bank, my name is Dasha, may I have your name please?");
         wait *;
     }   
     transitions 
@@ -103,101 +105,101 @@ digression international_student_credit_card
     }   
 }
 
-node no_ssn
-{
-    do 
-    {     
-        #sayText("Are you currently applying for one?"); 
-        wait*;
-    }
-    transitions
-    {
-        ssn_explain: goto ssn_explain on #messageHasIntent("no");
-    }
-}
+// node no_ssn
+// {
+//     do 
+//     {     
+//         #sayText("Are you currently applying for one?"); 
+//         wait*;
+//     }
+//     transitions
+//     {
+//         ssn_explain: goto ssn_explain on #messageHasIntent("no");
+//     }
+// }
 
-node ssn_explain
-{
-    do 
-    {     
-        #sayText("You would need one, or you’d need to apply for one in order to apply for a credit card application. And if you apply for the SSN and get a confirmation letter then we can use that as well. So you would need an I-10 or the social."); 
-        wait*;
-    }
-}
+// node ssn_explain
+// {
+//     do 
+//     {     
+//         #sayText("You would need one, or you’d need to apply for one in order to apply for a credit card application. And if you apply for the SSN and get a confirmation letter then we can use that as well. So you would need an I-10 or the social."); 
+//         wait*;
+//     }
+// }
 
-digression fees_associated_credit
-{
-    conditions {on #messageHasIntent("fees_associated_credit");} 
-    do 
-    {     
-        #sayText("Nope, no fees at all."); 
-        wait*;
-    }
-}
+// digression fees_associated_credit
+// {
+//     conditions {on #messageHasIntent("fees_associated_credit");} 
+//     do 
+//     {     
+//         #sayText("Nope, no fees at all."); 
+//         wait*;
+//     }
+// }
 
-digression documents_apply_credit
-{
-    conditions {on #messageHasIntent("documents_apply_credit");} 
-    do 
-    {     
-        #sayText("Okay, absolutely. In most cases we would require to provide verification of your name, date of birth, and social security number. It can be a social security card or if you have an I-10 that works too. And for the address we’d need like a lease or a rental agreement, utility bill or a bank statement."); 
-        wait*;
-    }
-    transitions
-    {
-        no_ssn: goto no_ssn on #messageHasIntent("no_ssn");
-    }
-}
+// digression documents_apply_credit
+// {
+//     conditions {on #messageHasIntent("documents_apply_credit");} 
+//     do 
+//     {     
+//         #sayText("Okay, absolutely. In most cases we would require to provide verification of your name, date of birth, and social security number. It can be a social security card or if you have an I-10 that works too. And for the address we’d need like a lease or a rental agreement, utility bill or a bank statement."); 
+//         wait*;
+//     }
+//     transitions
+//     {
+//         no_ssn: goto no_ssn on #messageHasIntent("no_ssn");
+//     }
+// }
 
-digression credit_monthly_fee
-{
-    conditions {on #messageHasIntent("credit_monthly_fee");} 
-    do 
-    {     
-        #sayText("There might be an annual fee depending on the type of card you decide to apply for. Like for example Chase Freedom cards and Freedom Student cards don’t have any fee.."); 
-        wait*;
-    }
-}
+// digression credit_monthly_fee
+// {
+//     conditions {on #messageHasIntent("credit_monthly_fee");} 
+//     do 
+//     {     
+//         #sayText("There might be an annual fee depending on the type of card you decide to apply for. Like for example Chase Freedom cards and Freedom Student cards don’t have any fee.."); 
+//         wait*;
+//     }
+// }
 
-digression debit_monthly_fee
-{
-    conditions {on #messageHasIntent("debit_monthly_fee");} 
-    do 
-    {     
-        #sayText("With debit cards you might pay a twelve-dollar monthly fee but if you keep a certain amount on your card, you wouldn’t have to pay that fee."); 
-        wait*;
-    }
-}
+// digression debit_monthly_fee
+// {
+//     conditions {on #messageHasIntent("debit_monthly_fee");} 
+//     do 
+//     {     
+//         #sayText("With debit cards you might pay a twelve-dollar monthly fee but if you keep a certain amount on your card, you wouldn’t have to pay that fee."); 
+//         wait*;
+//     }
+// }
 
-digression how_long_receive_credit_card
-{
-    conditions {on #messageHasIntent("how_long_receive_credit_card");} 
-    do 
-    {     
-        #sayText("Gotcha. It might take around one to two weeks but if you expedite it, you can get it within one or two business days."); 
-        wait*;
-    }
-}
+// digression how_long_receive_credit_card
+// {
+//     conditions {on #messageHasIntent("how_long_receive_credit_card");} 
+//     do 
+//     {     
+//         #sayText("Gotcha. It might take around one to two weeks but if you expedite it, you can get it within one or two business days."); 
+//         wait*;
+//     }
+// }
 
-digression expedited_paid
-{
-    conditions {on #messageHasIntent("expedited_paid");} 
-    do 
-    {     
-        #sayText("It’s absolutely free."); 
-        wait*;
-    }
-}
+// digression expedited_paid
+// {
+//     conditions {on #messageHasIntent("expedited_paid");} 
+//     do 
+//     {     
+//         #sayText("It’s absolutely free."); 
+//         wait*;
+//     }
+// }
 
-digression how_long_expedited
-{
-    conditions {on #messageHasIntent("how_long_expedited");} 
-    do 
-    {     
-        #sayText("It depends of the verification process mainly. They can take up to 30 days to process your application, or they can even process it within an hour or minute. So it depends.."); 
-        wait*;
-    }
-}
+// digression how_long_expedited
+// {
+//     conditions {on #messageHasIntent("how_long_expedited");} 
+//     do 
+//     {     
+//         #sayText("It depends of the verification process mainly. They can take up to 30 days to process your application, or they can even process it within an hour or minute. So it depends.."); 
+//         wait*;
+//     }
+// }
 
 digression can_help_else
 {
