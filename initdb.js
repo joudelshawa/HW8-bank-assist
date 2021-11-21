@@ -68,7 +68,9 @@ connection.query(`
     CREATE TABLE Statement (
         statementID int PRIMARY KEY,
         duedate date,
-        amount decimal(10,2)
+        amount decimal(10,2),
+        clientID int,
+        FOREIGN KEY (clientID) REFERENCES Client(clientID)
 );
 `
 , (error, rows, fields) => {
@@ -87,7 +89,9 @@ connection.query(`
         dateposted date,
         amount decimal(10,2),
         clientID int,
-        statementID int
+        statementID int,
+        FOREIGN KEY (clientID) REFERENCES Client(clientID),
+        FOREIGN KEY (statementID) REFERENCES Statement(statementID)
 );
 `
 , (error, rows, fields) => {
@@ -124,6 +128,7 @@ connection.query(`
         13,
         "2021-11-29",
         439.52,
+        14
     );
     `
     , (error, rows, fields) => {
