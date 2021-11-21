@@ -75,7 +75,8 @@
         "Should I pay it off soon?",
         "The bill is due?",
         "How soon do I have to pay it off?",
-        "Can I know when it is due?"
+        "Can I know when it is due?",
+        "When is the due date of my bill?"
       ]
     },
     "transactions_today": {
