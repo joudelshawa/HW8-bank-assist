@@ -9,7 +9,7 @@ This application allows the user to have their bank information relayed to them 
 1. Clone the repo and install the dependencies:
 
 ```sh
-git clone https://github.com/dasha-samples/HW8-bank-assist
+git clone https://github.com/joudelshawa/HW8-bank-assist
 cd HW8-bank-assist
 npm install
 ```
