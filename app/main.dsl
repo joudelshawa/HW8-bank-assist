@@ -26,7 +26,18 @@ start node root
     }   
     transitions 
     {
+        how_may_i_help_name: goto how_may_i_help_name on #messageHasData("first_name");
+    }
+}
 
+node how_may_i_help_name
+{
+    do 
+    {
+        set $first_name =  #messageGetData("first_name")[0]?.value??"";
+        set $last_name =  #messageGetData("last_name")[0]?.value??"";
+        #sayText("Great, nice to meet you " + $first_name + ", how may I assist you today?");
+        wait *;
     }
 }
 
@@ -37,72 +48,107 @@ digression how_may_i_help
     {
         set $first_name =  #messageGetData("first_name")[0]?.value??"";
         set $last_name =  #messageGetData("last_name")[0]?.value??"";
-        #sayText("Awesome, nice to meet you " + $first_name + ", how may I assist you today?");
+        #sayText("Cool, nice to meet you " + $first_name + ", how may I assist you today?");
         wait *;
     }
 }
 
-digression debit_card_intenational_student
-
-{
-    conditions {on #messageHasIntent("international_student") and #messageHasIntent("debit_card");} 
-    do
-    {
-        #sayText("You can definitely open a checking account with us.");
-        wait *;
-    }   
-}
-
-digression open_debit_docs_needed
-{
-    conditions {on #messageHasIntent("open_debit_docs_needed");} 
-    do 
-    {     
-        #sayText("Oh that's an easy part. You’ll just need two forms of valid IDs. That's it!"); 
+digression check_transactions {
+    conditions {on #messageHasIntent("transactions_today");}
+    do {
+        #sayText("your transactions today blah");
         wait*;
+    }
+    transitions {
+        
     }
 }
 
-digression how_soon_receive_debit_card
-{
-    conditions {on #messageHasIntent("how_soon_receive_debit_card");} 
-    do 
-    {     
-        #sayText("Generally speaking, you’ll get it within three to five business days. Doesn't usually take any longer than that. You'll have your debit card in no time is what I'm trying to say."); 
+digression check_statement {
+    conditions {on #messageHasIntent("bill_due");}
+    do {
+        #sayText("checking your bank statement hehe");
         wait*;
+    }
+    transitions {
+
+    }
+}
+
+digression list_options {
+    conditions {on #messageHasIntent("give_options");}
+    do {
+        #sayText("you can ask me to check your statement balance and due date and pay it off if you want, or you can ask me about today's transactions.");
+        wait*;
+    }
+    transitions {
+
     }
 }
 
 
-digression debit_via_mail
-{
-    conditions {on #messageHasIntent("debit_via_mail");} 
-    do 
-    {     
-        #sayText("Yes. Unfortunately, the card can be only sent to the address you specify. There’s no option to pick it up at the bank."); 
-        wait*;
-    }
-}
 
-digression debit_card_cashback
-{
-    conditions {on #messageHasIntent("debit_card_cashback");} 
-    do 
-    {     
-        #sayText("Um yes, some merchants will offer you cashback. As of now, that's the only way of geting cashback."); 
-        wait*;
-    }
-}
+// digression debit_card_intenational_student
 
-digression international_student_credit_card
-{
-    conditions {on #messageHasIntent("credit_card");} 
-    do
-    {
-        #sayText("Oh certainly, we offer Freedom student card and it’s definitely welcome for any international student to have.");
-        wait *;
-    }   
-}
+// {
+//     conditions {on #messageHasIntent("international_student") and #messageHasIntent("debit_card");} 
+//     do
+//     {
+//         #sayText("You can definitely open a checking account with us.");
+//         wait *;
+//     }   
+// }
+
+// digression open_debit_docs_needed
+// {
+//     conditions {on #messageHasIntent("open_debit_docs_needed");} 
+//     do 
+//     {     
+//         #sayText("Oh that's an easy part. You’ll just need two forms of valid IDs. That's it!"); 
+//         wait*;
+//     }
+// }
+
+// digression how_soon_receive_debit_card
+// {
+//     conditions {on #messageHasIntent("how_soon_receive_debit_card");} 
+//     do 
+//     {     
+//         #sayText("Generally speaking, you’ll get it within three to five business days. Doesn't usually take any longer than that. You'll have your debit card in no time is what I'm trying to say."); 
+//         wait*;
+//     }
+// }
+
+
+// digression debit_via_mail
+// {
+//     conditions {on #messageHasIntent("debit_via_mail");} 
+//     do 
+//     {     
+//         #sayText("Yes. Unfortunately, the card can be only sent to the address you specify. There’s no option to pick it up at the bank."); 
+//         wait*;
+//     }
+// }
+
+// digression debit_card_cashback
+// {
+//     conditions {on #messageHasIntent("debit_card_cashback");} 
+//     do 
+//     {     
+//         #sayText("Um yes, some merchants will offer you cashback. As of now, that's the only way of geting cashback."); 
+//         wait*;
+//     }
+// }
+
+// digression international_student_credit_card
+// {
+//     conditions {on #messageHasIntent("credit_card");} 
+//     do
+//     {
+//         #sayText("Oh certainly, we offer Freedom student card and it’s definitely welcome for any international student to have.");
+//         wait *;
+//     }   
+// }
 
 // node no_ssn
 // {
