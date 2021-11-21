@@ -1,6 +1,10 @@
-# How to start the demo app
+This application allows the user to have their bank information relayed to them over the phone. 
 
-This example shows how to build appointment confirmation application on top of Dasha. If you need any help, join us in our [Developer Community](https://community.dasha.ai).
+# Authors:
+* Joud El-Shawa
+* Yusra Salam
+
+# How to Run:
 
 1. Clone the repo and install the dependencies:
 
@@ -16,11 +20,9 @@ npm install
 npx dasha account login
 ```
 
-3. To start a text chat, run:
+3. Ensure you have everything you need for Dasha to run on your device:
 
-```sh
-npm start chat
-```
+https://docs.dasha.ai/en-us/default (if any, ensure you run "npm -i")
 
 4. To receive a phone call from Dasha, run:
 
