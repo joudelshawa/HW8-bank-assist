@@ -1,8 +1,8 @@
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 
-function newConnection()
+async function newConnection()
 {
-    let connection = mysql.createConnection({
+    let connection = await mysql.createConnection({
         host: '104.198.24.39',
         user: 'root',
         password: 'JIcmozn2pdbFHwIa',

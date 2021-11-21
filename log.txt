@@ -1,49 +1,18 @@
 ####################################################################################################
-human: 
 ai: Hi, welcome to Scotiabank. I'm Dasha, your artificially intelligent assistant. May I have your name please?
-[
-  {
-    "type": "Intent",
-    "skill": "common_phrases",
-    "weight": -1,
-    "likelihood": -1,
-    "location": {
-      "start": 0,
-      "end": 0
-    },
-    "intent": "ping",
-    "state": "positive",
-    "sentenceType": "statement"
-  },
-  {
-    "type": "Intent",
-    "skill": "common_phrases",
-    "weight": -1,
-    "likelihood": -1,
-    "location": {
-      "start": 1,
-      "end": 2
-    },
-    "intent": "this_is_me",
-    "state": "positive",
-    "sentenceType": "statement"
-  }
-]
-human: hi i'm sam
-ai: Sorry, could you say it again?
 [
   {
     "type": "Data",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 1,
+    "weight": 0.99998,
     "likelihood": 1,
     "location": {
-      "start": 7,
-      "end": 12
+      "start": 15,
+      "end": 19
     },
     "factType": "first_name",
     "data": {
-      "value": "Sarah"
+      "value": "Tony"
     }
   },
   {
@@ -58,41 +27,66 @@ ai: Sorry, could you say it again?
     "intent": "ping",
     "state": "positive",
     "sentenceType": "statement"
-  },
-  {
-    "type": "Intent",
-    "skill": "common_phrases",
-    "weight": -1,
-    "likelihood": -1,
-    "location": {
-      "start": 1,
-      "end": 2
-    },
-    "intent": "this_is_me",
-    "state": "positive",
-    "sentenceType": "statement"
   }
 ]
-human: hi i'm sarah
-ai: Cool, nice to meet you Sarah, how may I assist you today?
+human: Hi, my name is Tony.
+ai: Cool, nice to meet you Tony, how may I assist you today?
+[]
+human: uhm can i get my statement date
+ai: Sorry, I didn't quite catch that.
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.84915,
+    "weight": 0.65708,
     "likelihood": 1,
     "location": {
       "start": -1,
       "end": -1
     },
-    "intent": "transactions_today",
+    "intent": "bill_due",
     "state": "positive",
     "sentenceType": "statement"
   }
 ]
-human: how much did i spend today
+human: can i get my statement date
 ai: Can I please get your client ID number first?
-human: 11
+[
+  {
+    "type": "Data",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.63837,
+    "likelihood": 1,
+    "location": {
+      "start": 0,
+      "end": 2
+    },
+    "factType": "id",
+    "data": {
+      "value": "54"
+    }
+  }
+]
+human: 54
+ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
+[
+  {
+    "type": "Data",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.66175,
+    "likelihood": 1,
+    "location": {
+      "start": 0,
+      "end": 2
+    },
+    "factType": "id",
+    "data": {
+      "value": "37"
+    }
+  }
+]
+human: 37
+ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
 [
   {
     "type": "Data",
@@ -109,11 +103,15 @@ human: 11
     }
   }
 ]
+human: 11
+ai: Perfect!
+ai: Your next statement is due on Monday, November 29, 2021 and has a balance of 439.52.
+ai: Would you like to pay it off?
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.83594,
+    "weight": 0.98623,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -124,4 +122,74 @@ human: 11
     "sentenceType": "statement"
   }
 ]
-human: OK
+human: yes please
+ai: Your upcoming bill has been paid off.
+ai: Is there anything else I can help you with today?
+[]
+human: what else can you do
+ai: Sorry, could you say it again?
+[
+  {
+    "type": "Intent",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.74793,
+    "likelihood": 1,
+    "location": {
+      "start": -1,
+      "end": -1
+    },
+    "intent": "give_options",
+    "state": "positive",
+    "sentenceType": "statement"
+  }
+]
+human: what can you do
+ai: You can ask me about today's transactions, or to check your statement balance, due date, and pay it off if you want.
+[
+  {
+    "type": "Intent",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.63915,
+    "likelihood": 1,
+    "location": {
+      "start": -1,
+      "end": -1
+    },
+    "intent": "transactions_today",
+    "state": "positive",
+    "sentenceType": "statement"
+  }
+]
+human: any new transactions posted
+ai: You spent30.95 at hack western and 49.99 at dasha and that's it for today's transactions
+ai: Is there anything else I can help you with today?
+[
+  {
+    "type": "Intent",
+    "skill": "common_phrases",
+    "weight": -1,
+    "likelihood": -1,
+    "location": {
+      "start": 1,
+      "end": 2
+    },
+    "intent": "thank_you",
+    "state": "positive",
+    "sentenceType": "statement"
+  },
+  {
+    "type": "Intent",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.51914,
+    "likelihood": 1,
+    "location": {
+      "start": -1,
+      "end": -1
+    },
+    "intent": "no",
+    "state": "positive",
+    "sentenceType": "statement"
+  }
+]
+human: no thank you
+ai: No problem, happy to help. I hope you have a great rest of your day. Bye!
