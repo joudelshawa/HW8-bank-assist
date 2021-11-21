@@ -11,16 +11,16 @@ connection.connect();
 
 // dropping old tables
 
-connection.query('DROP Table Client',
-    (error, rows, fields) => {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log('Client table dropped');
-        }
+connection.query('DROP Table Transaction',
+(error, rows, fields) => {
+    if (error) {
+        console.log(error);
+    }
+    else {
+        console.log('Transaction table dropped');
+    }
 
-    });
+});
 
 connection.query('DROP Table Statement',
 (error, rows, fields) => {
@@ -33,16 +33,18 @@ connection.query('DROP Table Statement',
 
 });
 
-connection.query('DROP Table Transaction',
-(error, rows, fields) => {
-    if (error) {
-        console.log(error);
-    }
-    else {
-        console.log('Transaction table dropped');
-    }
+connection.query('DROP Table Client',
+    (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('Client table dropped');
+        }
 
-});
+    });
+
+
 
 // creating tables -- removed autoincrement stuff 
 
@@ -90,8 +92,8 @@ connection.query(`
         amount decimal(10,2),
         clientID int,
         statementID int,
-        FOREIGN KEY (clientID) REFERENCES Client(clientID),
-        FOREIGN KEY (statementID) REFERENCES Statement(statementID)
+        FOREIGN KEY (clientID) REFERENCES Client(clientID) ON DELETE CASCADE,
+        FOREIGN KEY (statementID) REFERENCES Statement(statementID) ON DELETE CASCADE
 );
 `
 , (error, rows, fields) => {
@@ -107,8 +109,8 @@ connection.query(`
 // inserting values into tables 
 
 connection.query(`
-    INSERT INTO TABLE Client VALUES(
-        14,
+    INSERT INTO Client VALUES(
+        11,
         "Jon",
         "Snow",
         "1234 Baker Avenue" 
@@ -119,16 +121,16 @@ connection.query(`
             console.log(error);
         }
         else {
-            console.log('Could not insert data into Client table');
+            console.log('inserted data into Client table');
         }
 });
 
 connection.query(`
-    INSERT INTO TABLE Statement VALUES(
+    INSERT INTO Statement VALUES(
         13,
         "2021-11-29",
         439.52,
-        14
+        11
     );
     `
     , (error, rows, fields) => {
@@ -136,28 +138,31 @@ connection.query(`
             console.log(error);
         }
         else {
-            console.log('Could not insert data into Statement table');
+            console.log('inserted data into Statement table');
         }
 });
 
 connection.query(`
-    INSERT INTO TABLE Transaction VALUES (
-        "2021-11-20",
+    INSERT INTO Transaction VALUES (
+        1546,
         "bubble tea",
-        23.74,
-        14,
+        "2021-11-20",
+        7.74,
+        11,
         13
     ), (
-        "2021-11-21",
+        1547,
         "hack western",
+        "2021-11-21",
         30.95,
-        14,
+        11,
         13
     ), (
-        "2021-11-21",
+        1548,
         "dasha",
+        "2021-11-21",
         49.99,
-        14,
+        11,
         13
     );
     `
@@ -166,7 +171,7 @@ connection.query(`
             console.log(error);
         }
         else {
-            console.log('Could not insert data into Statement table');
+            console.log('inserted data into Statement table');
         }
 });
 
