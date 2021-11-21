@@ -23,26 +23,13 @@ start node root
     {
         #connectSafe($phone);
         #waitForSpeech(1000);
-        #sayText("Hi, welcome to Scotiabank. I'm Dasha, your artificially intelligent assistant. May I have your name please?");
-        // #sayText("Hi, welcome to Chase Bank, my name is Dasha, may I have your name please?");
+        #sayText("Hi, welcome to Bank Yeller. I'm Dasha, your artificially intelligent assistant. May I have your name please?");
         wait *;
     }   
     transitions 
     {
-        // how_may_i_help_name: goto how_may_i_help_name on #messageHasData("first_name");
     }
 }
-
-// node how_may_i_help_name
-// {
-//     do 
-//     {
-//         set $first_name =  #messageGetData("first_name")[0]?.value??"";
-//         set $last_name =  #messageGetData("last_name")[0]?.value??"";
-//         #sayText("Great, nice to meet you " + $first_name + ", how may I assist you today?");
-//         wait *;
-//     }
-// }
 
 digression how_may_i_help
 {
@@ -51,7 +38,7 @@ digression how_may_i_help
     {
         set $first_name =  #messageGetData("first_name")[0]?.value??"";
         set $last_name =  #messageGetData("last_name")[0]?.value??"";
-        #sayText("Cool, nice to meet you " + $first_name + ", how may I assist you today?");
+        #sayText("Pleased to meet you " + $first_name + ", how may I assist you today?");
         wait *;
     }
 }
@@ -87,7 +74,6 @@ digression confirmID {
             #sayText("Perfect!");            
             set $clientID = cid;
             return;
-            // add goto wherever it came from
         }
         else {
             #sayText("Sorry, we do not seem to have a client with that ID in our bank. Try again.");
@@ -95,7 +81,6 @@ digression confirmID {
         }
     }
     transitions {
-        // confirmID: goto confirmID on #messageHasData("id");
     }
 }
 
@@ -110,21 +95,6 @@ digression check_statement {
     transitions { // wait for transition
         statements: goto statements on $clientID != "" tags:ontick ; // ontick is every 200ms -> this will be checked - if client ID is not an empty string go to node
     }
-    // do {
-    //     if ($clientID == "") {
-    //         #sayText("Can I please get your client ID number first?");
-    //     }
-    //     else {
-    //         var response = external getNearestStatement($clientID);
-    //         #sayText(response);
-    //         goto pay_off_statement;
-    //     }
-    //     wait*;
-    // }
-    // transitions {
-    //     // confirmID: goto confirmID on #messageHasData("id");
-    //     pay_off_statement: goto pay_off_statement;
-    // }
 }
 
 node statements {
@@ -139,16 +109,6 @@ node statements {
         bill_paid_off: goto bill_paid_off on #messageHasIntent("yes");
     }
 }
-
-// node pay_off_statement {
-//     do {
-//         #sayText("Would you like to pay off your next bill?");
-//         wait*;
-//     }
-//     transitions {
-//         bill_paid_off: goto bill_paid_off on #messageHasIntent("yes");
-//     }
-// }
 
 node bill_paid_off {
     do {
