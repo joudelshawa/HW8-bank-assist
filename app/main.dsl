@@ -8,11 +8,14 @@ context
     // declare storage variables 
     output first_name: string = "";
     output last_name: string = "";
+    output clientID: string = "";
 
 }
 
 // declaring external functions
-
+external function getTodaysTransactions(clientID: string): string;
+external function checkID(clientID: string): boolean;
+external function getNearestStatement(clientID: string): string;
 
 start node root 
 {
@@ -26,20 +29,20 @@ start node root
     }   
     transitions 
     {
-        how_may_i_help_name: goto how_may_i_help_name on #messageHasData("first_name");
+        // how_may_i_help_name: goto how_may_i_help_name on #messageHasData("first_name");
     }
 }
 
-node how_may_i_help_name
-{
-    do 
-    {
-        set $first_name =  #messageGetData("first_name")[0]?.value??"";
-        set $last_name =  #messageGetData("last_name")[0]?.value??"";
-        #sayText("Great, nice to meet you " + $first_name + ", how may I assist you today?");
-        wait *;
-    }
-}
+// node how_may_i_help_name
+// {
+//     do 
+//     {
+//         set $first_name =  #messageGetData("first_name")[0]?.value??"";
+//         set $last_name =  #messageGetData("last_name")[0]?.value??"";
+//         #sayText("Great, nice to meet you " + $first_name + ", how may I assist you today?");
+//         wait *;
+//     }
+// }
 
 digression how_may_i_help
 {
@@ -56,195 +59,115 @@ digression how_may_i_help
 digression check_transactions {
     conditions {on #messageHasIntent("transactions_today");}
     do {
-        #sayText("your transactions today blah");
+        if ($clientID == "") { // check if have client ID
+            #sayText("Can I please get your client ID number first?"); // if not, ask for it
+        }
         wait*;
     }
+    transitions { // wait for transition
+        transactions: goto transactions on $clientID != "" tags:ontick ; // ontick is every 200ms -> this will be checked - if client ID is not an empty string go to node
+    }
+}
+
+node transactions {
+    do {
+        var response = external getTodaysTransactions($clientID);
+        #sayText(response);
+        #sayText("Is there anything else I can help you with today?");
+        wait*;
+    }
+}
+
+digression confirmID {
+    conditions { on #messageHasData("id"); }
+    do {
+        var cid = #messageGetData("id", { value: true })[0]?.value??"";
+        var response = external checkID(cid);
+        if (response) {
+            #sayText("Perfect!");            
+            set $clientID = cid;
+            return;
+            // add goto wherever it came from
+        }
+        else {
+            #sayText("Sorry, we do not seem to have a client with that ID in our bank. Try again.");
+            return;
+        }
+    }
     transitions {
-        
+        // confirmID: goto confirmID on #messageHasData("id");
     }
 }
 
 digression check_statement {
     conditions {on #messageHasIntent("bill_due");}
     do {
-        #sayText("checking your bank statement hehe");
+        if ($clientID == "") { // check if have client ID
+            #sayText("Can I please get your client ID number first?"); // if not, ask for it
+        }
+        wait*;
+    }
+    transitions { // wait for transition
+        statements: goto statements on $clientID != "" tags:ontick ; // ontick is every 200ms -> this will be checked - if client ID is not an empty string go to node
+    }
+    // do {
+    //     if ($clientID == "") {
+    //         #sayText("Can I please get your client ID number first?");
+    //     }
+    //     else {
+    //         var response = external getNearestStatement($clientID);
+    //         #sayText(response);
+    //         goto pay_off_statement;
+    //     }
+    //     wait*;
+    // }
+    // transitions {
+    //     // confirmID: goto confirmID on #messageHasData("id");
+    //     pay_off_statement: goto pay_off_statement;
+    // }
+}
+
+node statements {
+    do {
+        var response = external getNearestStatement($clientID);
+        #sayText(response);
+        #sayText("Would you like to pay it off?");
         wait*;
     }
     transitions {
+        // confirmID: goto confirmID on #messageHasData("id");
+        bill_paid_off: goto bill_paid_off on #messageHasIntent("yes");
+    }
+}
 
+// node pay_off_statement {
+//     do {
+//         #sayText("Would you like to pay off your next bill?");
+//         wait*;
+//     }
+//     transitions {
+//         bill_paid_off: goto bill_paid_off on #messageHasIntent("yes");
+//     }
+// }
+
+node bill_paid_off {
+    do {
+        #sayText("Your upcoming bill has been paid off.");
+        #sayText("Is there anything else I can help you with today?");
+        wait*;
     }
 }
 
 digression list_options {
     conditions {on #messageHasIntent("give_options");}
     do {
-        #sayText("you can ask me to check your statement balance and due date and pay it off if you want, or you can ask me about today's transactions.");
+        #sayText("You can ask me about today's transactions, or to check your statement balance, due date, and pay it off if you want.");
         wait*;
     }
     transitions {
 
     }
 }
-
-
-
-// digression debit_card_intenational_student
-
-// {
-//     conditions {on #messageHasIntent("international_student") and #messageHasIntent("debit_card");} 
-//     do
-//     {
-//         #sayText("You can definitely open a checking account with us.");
-//         wait *;
-//     }   
-// }
-
-// digression open_debit_docs_needed
-// {
-//     conditions {on #messageHasIntent("open_debit_docs_needed");} 
-//     do 
-//     {     
-//         #sayText("Oh that's an easy part. You’ll just need two forms of valid IDs. That's it!"); 
-//         wait*;
-//     }
-// }
-
-// digression how_soon_receive_debit_card
-// {
-//     conditions {on #messageHasIntent("how_soon_receive_debit_card");} 
-//     do 
-//     {     
-//         #sayText("Generally speaking, you’ll get it within three to five business days. Doesn't usually take any longer than that. You'll have your debit card in no time is what I'm trying to say."); 
-//         wait*;
-//     }
-// }
-
-
-// digression debit_via_mail
-// {
-//     conditions {on #messageHasIntent("debit_via_mail");} 
-//     do 
-//     {     
-//         #sayText("Yes. Unfortunately, the card can be only sent to the address you specify. There’s no option to pick it up at the bank."); 
-//         wait*;
-//     }
-// }
-
-// digression debit_card_cashback
-// {
-//     conditions {on #messageHasIntent("debit_card_cashback");} 
-//     do 
-//     {     
-//         #sayText("Um yes, some merchants will offer you cashback. As of now, that's the only way of geting cashback."); 
-//         wait*;
-//     }
-// }
-
-// digression international_student_credit_card
-// {
-//     conditions {on #messageHasIntent("credit_card");} 
-//     do
-//     {
-//         #sayText("Oh certainly, we offer Freedom student card and it’s definitely welcome for any international student to have.");
-//         wait *;
-//     }   
-// }
-
-// node no_ssn
-// {
-//     do 
-//     {     
-//         #sayText("Are you currently applying for one?"); 
-//         wait*;
-//     }
-//     transitions
-//     {
-//         ssn_explain: goto ssn_explain on #messageHasIntent("no");
-//     }
-// }
-
-// node ssn_explain
-// {
-//     do 
-//     {     
-//         #sayText("You would need one, or you’d need to apply for one in order to apply for a credit card application. And if you apply for the SSN and get a confirmation letter then we can use that as well. So you would need an I-10 or the social."); 
-//         wait*;
-//     }
-// }
-
-// digression fees_associated_credit
-// {
-//     conditions {on #messageHasIntent("fees_associated_credit");} 
-//     do 
-//     {     
-//         #sayText("Nope, no fees at all."); 
-//         wait*;
-//     }
-// }
-
-// digression documents_apply_credit
-// {
-//     conditions {on #messageHasIntent("documents_apply_credit");} 
-//     do 
-//     {     
-//         #sayText("Okay, absolutely. In most cases we would require to provide verification of your name, date of birth, and social security number. It can be a social security card or if you have an I-10 that works too. And for the address we’d need like a lease or a rental agreement, utility bill or a bank statement."); 
-//         wait*;
-//     }
-//     transitions
-//     {
-//         no_ssn: goto no_ssn on #messageHasIntent("no_ssn");
-//     }
-// }
-
-// digression credit_monthly_fee
-// {
-//     conditions {on #messageHasIntent("credit_monthly_fee");} 
-//     do 
-//     {     
-//         #sayText("There might be an annual fee depending on the type of card you decide to apply for. Like for example Chase Freedom cards and Freedom Student cards don’t have any fee.."); 
-//         wait*;
-//     }
-// }
-
-// digression debit_monthly_fee
-// {
-//     conditions {on #messageHasIntent("debit_monthly_fee");} 
-//     do 
-//     {     
-//         #sayText("With debit cards you might pay a twelve-dollar monthly fee but if you keep a certain amount on your card, you wouldn’t have to pay that fee."); 
-//         wait*;
-//     }
-// }
-
-// digression how_long_receive_credit_card
-// {
-//     conditions {on #messageHasIntent("how_long_receive_credit_card");} 
-//     do 
-//     {     
-//         #sayText("Gotcha. It might take around one to two weeks but if you expedite it, you can get it within one or two business days."); 
-//         wait*;
-//     }
-// }
-
-// digression expedited_paid
-// {
-//     conditions {on #messageHasIntent("expedited_paid");} 
-//     do 
-//     {     
-//         #sayText("It’s absolutely free."); 
-//         wait*;
-//     }
-// }
-
-// digression how_long_expedited
-// {
-//     conditions {on #messageHasIntent("how_long_expedited");} 
-//     do 
-//     {     
-//         #sayText("It depends of the verification process mainly. They can take up to 30 days to process your application, or they can even process it within an hour or minute. So it depends.."); 
-//         wait*;
-//     }
-// }
 
 digression can_help_else
 {

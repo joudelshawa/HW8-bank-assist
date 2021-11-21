@@ -38,7 +38,7 @@ digression dont_understand
         {
             #say(item, repeatMode: "ignore");
         }
-        #repeat(accuracy: "short");
+        // #repeat(accuracy: "short");
         return;
     }
     transitions

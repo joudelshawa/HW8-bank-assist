@@ -3,16 +3,16 @@ ai: Hi, welcome to Chase Bank. I'm Dasha, your artificially intelligent assistan
 [
   {
     "type": "Data",
-    "skill": "28f9e916ece5bccf6c5b328c9da258e5:v2",
-    "weight": 0.99021,
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 1,
     "likelihood": 1,
     "location": {
-      "start": 14,
-      "end": 18
+      "start": 7,
+      "end": 12
     },
     "factType": "first_name",
     "data": {
-      "value": "John"
+      "value": "Sarah"
     }
   },
   {
@@ -27,31 +27,73 @@ ai: Hi, welcome to Chase Bank. I'm Dasha, your artificially intelligent assistan
     "intent": "ping",
     "state": "positive",
     "sentenceType": "statement"
+  },
+  {
+    "type": "Intent",
+    "skill": "common_phrases",
+    "weight": -1,
+    "likelihood": -1,
+    "location": {
+      "start": 1,
+      "end": 2
+    },
+    "intent": "this_is_me",
+    "state": "positive",
+    "sentenceType": "statement"
   }
 ]
-human: hi my name is john
-ai: Cool, nice to meet you John, how may I assist you today?
+human: hi i'm sarah
+ai: Cool, nice to meet you Sarah, how may I assist you today?
 [
   {
     "type": "Intent",
-    "skill": "28f9e916ece5bccf6c5b328c9da258e5:v2",
-    "weight": 0.72294,
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.84915,
     "likelihood": 1,
     "location": {
       "start": -1,
       "end": -1
     },
-    "intent": "give_options",
+    "intent": "transactions_today",
     "state": "positive",
     "sentenceType": "statement"
   }
 ]
-human: uh what can you do
-ai: you can ask me to check your statement balance and due date and pay it off if you want, or you can ask me about today's transactions.
-[]
-human: uh when is my statement bill do
-ai: Sorry, the connection dropped for a second. Could you say that again?
-ai: you can ask me to check your statement balance and due date and pay it off if you want, or you can ask me about today's transactions.
-[]
-human: when is the due date of my statement
-ai: I'm sorry, let me transfer you to another agent. Please stand by!
+human: how much did i spend today
+ai: Can I please get your client ID number first?
+[
+  {
+    "type": "Data",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.63654,
+    "likelihood": 1,
+    "location": {
+      "start": 0,
+      "end": 2
+    },
+    "factType": "id",
+    "data": {
+      "value": "11"
+    }
+  }
+]
+human: 11
+ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
+[
+  {
+    "type": "Data",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.98954,
+    "likelihood": 1,
+    "location": {
+      "start": 0,
+      "end": 1
+    },
+    "factType": "id",
+    "data": {
+      "value": "3"
+    }
+  }
+]
+human: 3.
+ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
