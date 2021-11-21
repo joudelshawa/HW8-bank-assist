@@ -48,14 +48,11 @@ ai: Pleased to meet you Sarah, how may I assist you today?
 ]
 human: what can you do
 ai: You can ask me about today's transactions, or to check your statement balance, due date, and pay it off if you want.
-[]
-human: uh what transactions did i have today
-ai: Sorry, could you say it again?
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.648,
+    "weight": 0.54525,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -66,7 +63,7 @@ ai: Sorry, could you say it again?
     "sentenceType": "statement"
   }
 ]
-human: what transactions did i have today
+human: what were my transactions today
 ai: Can I please get your client ID number first?
 human: 40
 [
@@ -90,11 +87,11 @@ ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
   {
     "type": "Data",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.97172,
+    "weight": 0.96639,
     "likelihood": 1,
     "location": {
-      "start": 18,
-      "end": 20
+      "start": 25,
+      "end": 27
     },
     "factType": "id",
     "data": {
@@ -102,7 +99,7 @@ ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
     }
   }
 ]
-human: oh sorry my ID is 11
+human: oh sorry my client ID is 11
 ai: Perfect!
 ai: You spent30.95 at hack western and 49.99 at dasha and that's it for today's transactions
 ai: Is there anything else I can help you with today?
@@ -110,7 +107,7 @@ ai: Is there anything else I can help you with today?
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.68704,
+    "weight": 0.99602,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -121,7 +118,7 @@ ai: Is there anything else I can help you with today?
     "sentenceType": "statement"
   }
 ]
-human: when's my next statement due date
+human: Is my statement due date soon?
 ai: Your next statement is due on Monday, November 29, 2021 and has a balance of 439.52.
 ai: Would you like to pay it off?
 [
@@ -149,13 +146,13 @@ ai: Is there anything else I can help you with today?
     "weight": -1,
     "likelihood": -1,
     "location": {
-      "start": 1,
-      "end": 2
+      "start": 3,
+      "end": 4
     },
     "intent": "thank_you",
     "state": "positive",
     "sentenceType": "statement"
   }
 ]
-human: no thank you that's it
+human: no that's it thank you
 ai: No problem, happy to help. I hope you have a great rest of your day. Bye!
