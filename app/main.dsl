@@ -23,7 +23,7 @@ start node root
     {
         #connectSafe($phone);
         #waitForSpeech(1000);
-        #sayText("Hi, welcome to Chase Bank. I'm Dasha, your artificially intelligent assistant. May I have your name please?");
+        #sayText("Hi, welcome to Scotiabank. I'm Dasha, your artificially intelligent assistant. May I have your name please?");
         // #sayText("Hi, welcome to Chase Bank, my name is Dasha, may I have your name please?");
         wait *;
     }   

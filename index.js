@@ -41,35 +41,81 @@ async function main() {
     console.log("in js check ID method " + args.clientID);
     // if (args.clientID == 14) return true;
     // else return false;
-    let con = newConn();
-    con.connect();
+    // const promiseA = new Promise(queryGet);
+    let queryResponse = await queryGet();
+    if(queryResponse){
+      return true; }
+      else return false;    
     
     // query to get client's id to see if it is in our database 
     var t = 0;
-    var query = 'SELECT clientID FROM Client WHERE clientID = ' + args.clientID;
-    console.log(query);
+    var someVar = [];
+  //  // async function getRows() {
+  //   function quo (success){
+  //     value = con.query(
+  //        'SELECT clientID FROM Client WHERE clientID = ' + args.clientID , 
+  //        function (error, results, fields) {
+  //            if (error) throw error;
+  //            console.log('The id is: ', results[0].clientID);
+  //            success (results[0].clientID);
+  //        });
+  // }
+  
+  // quo (function (role) {
+  //    console.log(role);
+  //    /* do something useful with the role that came back from the query */
+  //    if (role.length > 0) t=1;
+  //   //  else return false;
+  // });
+  
+    async function queryGet() {
+      let con = newConn();
+      con.connect();
+      var query = 'SELECT clientID FROM Client WHERE clientID = ' + args.clientID;
+      console.log(query);
 
-    con.query(query, (err,rows) => {
-      if(err) throw err;
+      // con.query(query, (err,rows) => {
+      con.query(query => {
+        if(err) throw err;
+        else{
+          let stuff = setValue(rows);
+          return stuff;
+        }
+      }); 
+      con.end();
+    }
 
-      for(let r of rows){
-        t=1;
-        console.log("yuh");
-        return true;
-      }
-      return false;
-      // if (rows > 0) {
-      //   console.log('Data received from Db:');
-      //   console.log(rows);
-      //   // let id = args.clientID;
-      //   t = 1;
-      // }
-      // otherwise user's id does not exist
-    });
-    console.log("checked id!");
-    con.end();
-    // if (t == 1) return true;
-    // else return false;
+        // for(let r of rows){
+        //   content = "true";
+        //   console.log("yuh");
+        //   console.log(r.clientID);
+        //   return content;
+        // }
+        // if(t==0){
+        //   console.log("nuh");
+        //   return false;
+        // }
+        // if (rows > 0) {
+        //   console.log('Data received from Db:');
+        //   console.log(rows);
+        //   // let id = args.clientID;
+        //   t = 1;
+        // }
+        // otherwise user's id does not exist
+      
+    //}
+    function setValue(value){
+      someVar = value;
+      console.log(someVar);
+      if (someVar.length > 0) return true;
+      else return false;
+    }
+    
+    // console.log("checked id!");
+    
+    //return await getRows();
+    console.log(t);
+    
   });
 
   // function to get today's transactions

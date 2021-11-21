@@ -1,5 +1,36 @@
 ####################################################################################################
-ai: Hi, welcome to Chase Bank. I'm Dasha, your artificially intelligent assistant. May I have your name please?
+human: 
+ai: Hi, welcome to Scotiabank. I'm Dasha, your artificially intelligent assistant. May I have your name please?
+[
+  {
+    "type": "Intent",
+    "skill": "common_phrases",
+    "weight": -1,
+    "likelihood": -1,
+    "location": {
+      "start": 0,
+      "end": 0
+    },
+    "intent": "ping",
+    "state": "positive",
+    "sentenceType": "statement"
+  },
+  {
+    "type": "Intent",
+    "skill": "common_phrases",
+    "weight": -1,
+    "likelihood": -1,
+    "location": {
+      "start": 1,
+      "end": 2
+    },
+    "intent": "this_is_me",
+    "state": "positive",
+    "sentenceType": "statement"
+  }
+]
+human: hi i'm sam
+ai: Sorry, could you say it again?
 [
   {
     "type": "Data",
@@ -61,6 +92,7 @@ ai: Cool, nice to meet you Sarah, how may I assist you today?
 ]
 human: how much did i spend today
 ai: Can I please get your client ID number first?
+human: 11
 [
   {
     "type": "Data",
@@ -77,23 +109,19 @@ ai: Can I please get your client ID number first?
     }
   }
 ]
-human: 11
-ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
 [
   {
-    "type": "Data",
+    "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.98954,
+    "weight": 0.83594,
     "likelihood": 1,
     "location": {
-      "start": 0,
-      "end": 1
+      "start": -1,
+      "end": -1
     },
-    "factType": "id",
-    "data": {
-      "value": "3"
-    }
+    "intent": "yes",
+    "state": "positive",
+    "sentenceType": "statement"
   }
 ]
-human: 3.
-ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
+human: OK
