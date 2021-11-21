@@ -1,6 +1,23 @@
 const dasha = require("@dasha.ai/sdk");
 const fs = require("fs");
-const conn = require("./DBConnection");
+const { connect } = require("http2");
+const newConn = require("./DBConnection");
+// ^^figure out way to connect it somehow
+// added by joud idk
+
+// const mysql = require('mysql');
+// let connection = mysql.createConnection({
+//     host: '104.198.24.39',
+//     user: 'root',
+//     password: 'JIcmozn2pdbFHwIa',
+//     database: 'bankDB'
+// })
+// connection.connect();
+
+
+
+
+
 
 async function main() {
   const app = await dasha.deploy("./app");
@@ -13,28 +30,120 @@ async function main() {
       : dasha.sip.connect(new dasha.sip.Endpoint("default"));
   await app.start();
 
-  app.setExternal("check_availability", (args, conv) => {
-    // Implement how to check availability in yoor database
-    // Now availability is random
-    return Math.random() > 0.5;
+  // app.setExternal("check_availability", (args, conv) => {
+  //   // Implement how to check availability in yoor database
+  //   // Now availability is random
+  //   return Math.random() > 0.5;
+  // });
+
+  // function to check if client's id is valid
+  app.setExternal("checkID", async(args, conv) => {
+    console.log("in js check ID method " + args.clientID);
+    // if (args.clientID == 14) return true;
+    // else return false;
+    let con = newConn();
+    con.connect();
+    
+    // query to get client's id to see if it is in our database 
+    var t = 0;
+    var query = 'SELECT clientID FROM Client WHERE clientID = ' + args.clientID;
+    console.log(query);
+
+    con.query(query, (err,rows) => {
+      if(err) throw err;
+
+      for(let r of rows){
+        t=1;
+        console.log("yuh");
+        return true;
+      }
+      return false;
+      // if (rows > 0) {
+      //   console.log('Data received from Db:');
+      //   console.log(rows);
+      //   // let id = args.clientID;
+      //   t = 1;
+      // }
+      // otherwise user's id does not exist
+    });
+    console.log("checked id!");
+    con.end();
+    // if (t == 1) return true;
+    // else return false;
   });
 
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  // function to get today's transactions
+  app.setExternal("getTodaysTransactions", async(args, conv) => {
+    // console.log("in js transaction method");
+    // return ("you bought bubble tea today for $7.98");
+    let con = newConn();
+    con.connect();
+    // query to get client's transactions 
+    var query = 'SELECT location, amount FROM Transaction WHERE dateposted = CURDATE() AND clientID = ' + args.clientID;
+    var text = "";
+    con.query(query, (err,rows) => {
+      if(err) throw err;
+    
+      console.log('Data received from Db:');
+      console.log(rows);
+      let content ='';
+      for(let r of rows){
+        content += r.amount + " at " + r.location + " and ";
+        console.log(r.amount);
+        // console.log(r.location);
+      }
+      content += "that's it for today's transactions";
+      text = content;
+      return content; 
+    });
+    con.end();
+    console.log("in js transaction method 2 " + text);
+    return text;
+  });
+
+  // function to get information about nearest bill
+  app.setExternal("getNearestStatement", async(args, conv) => {
+    console.log("in js statement due date method");
+    // return ("your nearest bill due date is november 29, 2021, and the amount is $1347.93");
+    let con = newConn();
+    con.connect();
+    // query to get client's nearest statement 
+    var query = 'SELECT duedate, amount FROM Statement WHERE duedate > CURDATE() AND duedate < (ADDDATE(CURDATE(), INTERVAL 1 MONTH) AND clientID = ' + args.clientID;
+    var text = "";
+    con.query(query, (err,rows) => {
+      if(err) throw err;
+    
+      console.log('Data received from Db:');
+      console.log(rows);
+      let content ='';
+      for(let r of rows){
+        content = "Your next statement is due on " + r.duedate + " and has a balance of " + r.amount + ".";
+        console.log(r.amount);
+      }
+      text = content;
+      console.log("in js statement due date method");
+      // return data idk
+    });
+    con.end();
+    return text;
+  });
+
+  // const days = [
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday",
+  //   "Sunday",
+  // ];
   // Select random day of appointment
   // You should define it with the database
-  let day = days[Math.floor(Math.random() * days.length)];
+  // let day = days[Math.floor(Math.random() * days.length)];
 
   const conv = app.createConversation({
     phone: process.argv[2],
-    day_of_week: day,
+    // day_of_week: day,
   });
 
   if (conv.input.phone !== "chat") conv.on("transcription", console.log);
