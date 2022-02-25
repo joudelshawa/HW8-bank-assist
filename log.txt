@@ -1,58 +1,29 @@
 ####################################################################################################
+human: 
 ai: Hi, welcome to Bank Yeller. I'm Dasha, your artificially intelligent assistant. May I have your name please?
 [
   {
     "type": "Data",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.97265,
+    "weight": 0.43371,
     "likelihood": 1,
     "location": {
-      "start": 14,
-      "end": 19
+      "start": 0,
+      "end": 5
     },
     "factType": "first_name",
     "data": {
       "value": "Sarah"
     }
-  },
-  {
-    "type": "Intent",
-    "skill": "common_phrases",
-    "weight": -1,
-    "likelihood": -1,
-    "location": {
-      "start": 0,
-      "end": 0
-    },
-    "intent": "ping",
-    "state": "positive",
-    "sentenceType": "statement"
   }
 ]
-human: hi my name is sarah
+human: sarah
 ai: Pleased to meet you Sarah, how may I assist you today?
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.74793,
-    "likelihood": 1,
-    "location": {
-      "start": -1,
-      "end": -1
-    },
-    "intent": "give_options",
-    "state": "positive",
-    "sentenceType": "statement"
-  }
-]
-human: what can you do
-ai: You can ask me about today's transactions, or to check your statement balance, due date, and pay it off if you want.
-[
-  {
-    "type": "Intent",
-    "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.54525,
+    "weight": 0.84915,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -63,14 +34,13 @@ ai: You can ask me about today's transactions, or to check your statement balanc
     "sentenceType": "statement"
   }
 ]
-human: what were my transactions today
+human: how much did i spend today
 ai: Can I please get your client ID number first?
-human: 40
 [
   {
     "type": "Data",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.61719,
+    "weight": 0.63654,
     "likelihood": 1,
     "location": {
       "start": 0,
@@ -78,36 +48,19 @@ human: 40
     },
     "factType": "id",
     "data": {
-      "value": "40"
-    }
-  }
-]
-ai: Sorry, we do not seem to have a client with that ID in our bank. Try again.
-[
-  {
-    "type": "Data",
-    "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.96639,
-    "likelihood": 1,
-    "location": {
-      "start": 25,
-      "end": 27
-    },
-    "factType": "id",
-    "data": {
       "value": "11"
     }
   }
 ]
-human: oh sorry my client ID is 11
+human: 11
 ai: Perfect!
-ai: You spent30.95 at hack western and 49.99 at dasha and that's it for today's transactions
+ai: You spent30.95 at hack western and that's it for today's transactions
 ai: Is there anything else I can help you with today?
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.99602,
+    "weight": 0.68704,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -118,14 +71,14 @@ ai: Is there anything else I can help you with today?
     "sentenceType": "statement"
   }
 ]
-human: Is my statement due date soon?
-ai: Your next statement is due on Monday, November 29, 2021 and has a balance of 439.52.
+human: when's my next statement due date
+ai: Your next statement is due on Saturday, February 26, 2022 and has a balance of 489.52.
 ai: Would you like to pay it off?
 [
   {
     "type": "Intent",
     "skill": "679bd95606487f7a65afe311e18fda24:v2",
-    "weight": 0.98623,
+    "weight": 0.94547,
     "likelihood": 1,
     "location": {
       "start": -1,
@@ -136,8 +89,10 @@ ai: Would you like to pay it off?
     "sentenceType": "statement"
   }
 ]
-human: yes please
+human: Uh.
+human: yes
 ai: Your upcoming bill has been paid off.
+human: stop
 ai: Is there anything else I can help you with today?
 [
   {
@@ -146,13 +101,27 @@ ai: Is there anything else I can help you with today?
     "weight": -1,
     "likelihood": -1,
     "location": {
-      "start": 3,
-      "end": 4
+      "start": 1,
+      "end": 2
     },
     "intent": "thank_you",
     "state": "positive",
     "sentenceType": "statement"
+  },
+  {
+    "type": "Intent",
+    "skill": "679bd95606487f7a65afe311e18fda24:v2",
+    "weight": 0.89743,
+    "likelihood": 1,
+    "location": {
+      "start": -1,
+      "end": -1
+    },
+    "intent": "no",
+    "state": "positive",
+    "sentenceType": "statement"
   }
 ]
-human: no that's it thank you
+human: No, thank you.
+human: 
 ai: No problem, happy to help. I hope you have a great rest of your day. Bye!

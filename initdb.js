@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 
 let connection = mysql.createConnection({
-    host: '104.198.24.39',
+    host: '35.222.11.233',
     user: 'root',
     password: 'JIcmozn2pdbFHwIa',
     database: 'bankDB'
@@ -131,6 +131,11 @@ connection.query(`
         "2021-11-29",
         439.52,
         11
+    ), (
+        14,
+        "2022-02-26",
+        489.52,
+        11
     );
     `
     , (error, rows, fields) => {
@@ -146,14 +151,14 @@ connection.query(`
     INSERT INTO Transaction VALUES (
         1546,
         "bubble tea",
-        "2021-11-20",
+        "2022-02-24",
         7.74,
         11,
         13
     ), (
         1547,
         "hack western",
-        "2021-11-21",
+        "2022-02-25",
         30.95,
         11,
         13
@@ -171,7 +176,7 @@ connection.query(`
             console.log(error);
         }
         else {
-            console.log('inserted data into Statement table');
+            console.log('inserted data into Transaction table');
         }
 });
 
