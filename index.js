@@ -42,10 +42,11 @@ async function main() {
 
     // query to get client's transactions 
     let query = 'SELECT location, amount FROM Transaction WHERE dateposted = CURDATE() AND clientID = ' + args.clientID;
+    console.log(query);
     let text = "You spent";
     const resultQ = await con.query(query);
     const result = resultQ[0];
-    
+    console.log(result);
     for(let r of result){
       text += r.amount + " at " + r.location + " and ";
     }
